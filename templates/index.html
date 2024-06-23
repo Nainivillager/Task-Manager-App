@@ -11,6 +11,21 @@
          <div class="jumbotron p-3">
             <h2> Manage <b> Tasks </b> <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#mymodal">Add New Task</button></b></h2>
 
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+  
+            {% for message in messages %}
+
+            <div class="alert alert-success alert-dismissable" role="alert">
+               {{message}}
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="close">
+               <span aria-hidden="true" float-end>&times</span>
+            </button>
+            </div>
+            {% endfor %}
+  
+            {% endif %}
+            {% endwith %}
             <table class="table table-hover table-dark">
                <tr>
                   <th>ID</th>
@@ -82,7 +97,7 @@
             <h4 class="modal-title">Add Tasks</h4>
          </div>
          <div class="modal-body">
-            <form action="" method="POST">
+            <form action="{{url_for('insert')}}" method="POST">
 
                <div class="form-group">
                   <label for="task">Task:</label>

@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -28,7 +28,20 @@ with app.app_context():
 def Index():
    return render_template("index.html")
 
+@app.route('/', methods = ['POST'])
+def insert():
+   if request.method == 'POST':
+      task = request.form['task']
+      description = request.form['description']
+      date = request.form['date']
 
+      my_data = Data(task, description, date)
+      db.session.add(my_data)
+      db.session.commit()
+
+      flash("Task inserted successfully")
+      
+      return redirect(url_for('Index'))
 
 if __name__ == "__main__":
    app.run(debug=True)
