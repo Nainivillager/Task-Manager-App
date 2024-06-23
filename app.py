@@ -10,6 +10,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
 db = SQLAlchemy(app)
 
+
 class Data(db.Model):
    id = db.Column(db.Integer, primary_key = True)
    task = db.Column(db.String(50))
@@ -34,6 +35,7 @@ def insert():
       date = request.form['date']
 
       my_data = Data(task, description, date)
+
       db.session.add(my_data)
       db.session.commit()
 
@@ -49,7 +51,7 @@ def update():
       my_data.task = request.form['task']
       my_data.description = request.form['description']
       my_data.date = request.form['date']
-
+   
       db.session.commit()
       flash("Task Updated Successfully")
 
